@@ -1,0 +1,11 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Label text="Next wave in 3..." name="WaveCountdownLabel" style="position: absolute; top: 50px; left: 0; right: 0; bottom: auto; font-size: 30px; color: rgb(255, 255, 255); -unity-text-align: upper-center; translate: 0 0; display: none; visibility: visible; opacity: 1;"/>
+    <ui:VisualElement name="WinPanel" style="flex-grow: 1; width: 100%; height: 100%; justify-content: center; align-items: center; background-color: rgba(0, 0, 0, 0.08); display: none;">
+        <ui:Label text="Stage Finished" name="stageFinishedLabel" style="font-size: 48px; color: rgb(255, 255, 255);"/>
+        <ui:Button text="Next Stage" name="ContinueButton" style="width: auto; font-size: 30px;"/>
+    </ui:VisualElement>
+    <ui:VisualElement name="LosePanel" style="flex-grow: 1; width: 100%; height: 100%; justify-content: center; align-items: center; background-color: rgba(0, 0, 0, 0.08); display: none;">
+        <ui:Label text="YOU DIED" name="LoseTitle" style="font-size: 48px; color: rgb(255, 255, 255);"/>
+        <ui:Button text="Replay" name="ReplayButton" style="font-size: 30px;"/>
+    </ui:VisualElement>
+</ui:UXML>
