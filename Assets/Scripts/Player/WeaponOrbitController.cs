@@ -1,19 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponController : MonoBehaviour
+public class WeaponController : MonoBehaviour, IResettable
 {
     public Transform player;
     public GameObject weaponPrefab;
 
     public int weaponCount = 1;
-    public float radius = 0.8f;
-    public float rotationSpeed = 180f;
+    public float radius = 2f;
+    public float rotationSpeed = 120f;
     public float weaponDamage = 25f;
 
     private List<GameObject> weapons = new List<GameObject>();
 
     private float currentAngle;
+
+    public void ResetState()
+    {
+        ResetWeapons();
+        weaponDamage = 25f;
+        rotationSpeed = 120f;
+        radius = 2f;
+    }
 
     void Start()
     {
@@ -79,5 +87,22 @@ public class WeaponController : MonoBehaviour
 
         weapon.transform.rotation =
             Quaternion.Euler(0, 0, rotationZ - 90f);
+    }
+
+    public void ResetWeapons()
+    {
+        foreach (var w in weapons)
+        {
+            Destroy(w);
+        }
+
+        weapons.Clear();
+
+        weaponCount = 2;
+
+        for (int i = 0; i < weaponCount; i++)
+        {
+            AddWeapon();
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerLevel : MonoBehaviour
+public class PlayerLevel : MonoBehaviour, IResettable
 {
     public int level = 1;
 
@@ -12,6 +12,15 @@ public class PlayerLevel : MonoBehaviour
     public UIExpBar expBar;
 
     public LevelUpUI levelUpUI;
+
+    public void ResetState()
+    {
+        level = 1;
+        currentExp = 0;
+        expToNextLevel = 10;
+        UpdateUI();
+    }
+
     private void Start()
     {
         UpdateUI();

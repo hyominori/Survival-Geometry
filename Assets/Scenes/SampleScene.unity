@@ -2850,9 +2850,9 @@ MonoBehaviour:
     value: 1
     requireProjectile: 0
     requireHPRegen: 0
-  - upgradeName: Weapon Speed
+  - upgradeName: Weapon Rotation Speed
     type: 3
-    value: 40
+    value: 20
     requireProjectile: 0
     requireHPRegen: 0
   - upgradeName: Move Speed

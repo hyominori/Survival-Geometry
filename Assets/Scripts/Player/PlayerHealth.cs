@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class PlayerHealth : Health
+public class PlayerHealth : Health, IResettable
 {
     public float invincibleTime = 1.5f;
     private bool isInvincible;
@@ -10,6 +10,12 @@ public class PlayerHealth : Health
     [SerializeField] private float flashInterval = 0.1f;
 
     public bool IsInvincible => isInvincible;
+
+    public void ResetState()
+    {
+        RestoreToMaxHP();
+        maxHP = 100;
+    }
 
     public override void TakeDamage(float damage)
     {

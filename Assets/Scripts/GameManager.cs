@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections;
+using UnityEditor;
+using System.Linq;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +12,8 @@ public class GameManager : MonoBehaviour
     [Header("References")]
     public EnemyController enemyController;
     public PlayerHealth playerHealth;
+    private MenuUI menuUI;
+    private  HashSet<EnemyHealth> registeredEnemies = new HashSet<EnemyHealth>();
 
     [Header("Stages")]
     public LevelConfig[] stages;
@@ -22,6 +27,7 @@ public class GameManager : MonoBehaviour
     private Label waveCountdownLabel;
     private Button continueButton;
     private Button replayButton;
+    private Button menuButton;
 
     private int currentStageIndex = 0;
     private int currentWaveIndex = 0;
@@ -49,6 +55,7 @@ public class GameManager : MonoBehaviour
     {
         uiDoc = FindObjectOfType<UIDocument>();
         root = uiDoc.rootVisualElement;
+        menuUI = FindObjectOfType<MenuUI>();
 
         winPanel = root.Q<VisualElement>("WinPanel");
         losePanel = root.Q<VisualElement>("LosePanel");
@@ -58,9 +65,15 @@ public class GameManager : MonoBehaviour
 
         continueButton = root.Q<Button>("ContinueButton");
         replayButton = root.Q<Button>("ReplayButton");
+        menuButton = root.Q<Button>("MenuButton");
 
         continueButton.clicked += NextStage;
         replayButton.clicked += RestartGame;
+        menuButton.clicked += () =>
+        {
+            winPanel.style.display = DisplayStyle.None;
+            menuUI.BackToMenu();
+        };
 
         winPanel.style.display = DisplayStyle.None;
         losePanel.style.display = DisplayStyle.None;
@@ -181,6 +194,12 @@ public class GameManager : MonoBehaviour
 
     public void RegisterEnemy(EnemyHealth enemy)
     {
+        if (registeredEnemies.Contains(enemy))
+        {
+            return;
+        }
+        registeredEnemies.Add(enemy);
+
         aliveEnemies++;
         enemy.OnDied.AddListener(OnEnemyDied);
     }
@@ -191,6 +210,8 @@ public class GameManager : MonoBehaviour
 
         totalKilledThisWave++;
         aliveEnemies--;
+
+        registeredEnemies.RemoveWhere(e => e == null);
 
         WaveConfig wave = GetCurrentWave();
 
@@ -205,7 +226,6 @@ public class GameManager : MonoBehaviour
                 TriggerNextWave(wave.nextWaveDelay);
             }
         }
-
         CheckStageCompletion();
     }
 
@@ -233,7 +253,28 @@ public class GameManager : MonoBehaviour
         isGameOver = true;
 
         int stageNumber = currentStageIndex + 1;
-        stageFinishedLabel.text = $"Stage {stageNumber} Finished!";
+
+        bool isFinalStage = currentStageIndex >= stages.Length - 1;
+
+        if (isFinalStage)
+        {
+            stageFinishedLabel.text = "Final Stage Finished!";
+
+            // Ẩn nút Next
+            continueButton.style.display = DisplayStyle.None;
+
+            // Hiện nút Replay
+            replayButton.style.display = DisplayStyle.Flex;
+
+            menuButton.style.display = DisplayStyle.Flex;
+        }
+        else
+        {
+            stageFinishedLabel.text = $"Stage {stageNumber} Finished!";
+
+            continueButton.style.display = DisplayStyle.Flex;
+            replayButton.style.display = DisplayStyle.None;
+        }
 
         winPanel.style.display = DisplayStyle.Flex;
         Time.timeScale = 0f;
@@ -245,8 +286,9 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
 
         int nextIndex = currentStageIndex + 1;
+
         if (nextIndex >= stages.Length)
-            nextIndex = 0;
+            return;
 
         StartStage(nextIndex);
     }
@@ -254,29 +296,65 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         losePanel.style.display = DisplayStyle.None;
+        winPanel.style.display = DisplayStyle.None;
         Time.timeScale = 1f;
+        ResetGame();
         StartStage(0);
     }
 
     public void ClearStageObjects()
     {
-        // Xóa enemy
+        ClearAllProjectiles();
+        ClearEnemies();
+    }
+
+    public void ClearEnemies()
+    {
         foreach (var enemy in FindObjectsOfType<EnemyHealth>())
         {
             Destroy(enemy.gameObject);
         }
+    }
 
-        // Xóa toàn bộ enemy bullets
-        GameObject[] enemyBullets = GameObject.FindGameObjectsWithTag("EnemyBullet");
-        foreach (var enemybullet in enemyBullets)
-        {
-            Destroy(enemybullet);
-        }
+    public void ClearAllProjectiles()
+    {
+        foreach (var p in FindObjectsOfType<Projectile>())
+            Destroy(p.gameObject);
 
-        GameObject[] playerBullets = GameObject.FindGameObjectsWithTag("PlayerBullet");
-        foreach (var playerBullet in playerBullets)
+        foreach (var p in FindObjectsOfType<BossBullet>())
+            Destroy(p.gameObject);
+    }
+
+    void ResetAllSystem()
+    {
+        var resettables = FindObjectsOfType<MonoBehaviour>().OfType<IResettable>();
+        foreach (var r in resettables)
         {
-            Destroy(playerBullet);
+            r.ResetState();
         }
+    }
+
+    public void ResetGame()
+    {
+        Time.timeScale = 1f;
+
+        // Reset stage
+        currentStageIndex = 0;
+        currentWaveIndex = 0;
+
+        waveTriggered = false;
+        waveTimer = 0f;
+
+        totalKilledThisWave = 0;
+        totalSpawnedThisWave = 0;
+        aliveEnemies = 0;
+
+        isGameOver = false;
+
+        // Clear enemy + đạn
+        ClearEnemies();
+        ClearAllProjectiles();
+
+        ResetAllSystem();
     }
 }

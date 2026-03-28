@@ -35,20 +35,15 @@ public class PauseUI : MonoBehaviour
         Time.timeScale = 1f;
         pausePanel.SetActive(false);
 
-        GameManager.Instance.RestartGame();
+        GameManager.Instance.ResetGame();
+        GameManager.Instance.StartStage(0);
     }
 
     public void BackToMenu()
     {
-        Time.timeScale = 1f;
+        Time.timeScale = 0f;
         pausePanel.SetActive(false);
 
-        if (menuUI != null)
-        {
-            GameManager.Instance.ClearStageObjects();
-            menuUI.BackToMenu();
-        }
-        else
-            Debug.LogError("MenuUI chưa được gán!");
+        menuUI.BackToMenu(); // gọi về menu
     }
 }

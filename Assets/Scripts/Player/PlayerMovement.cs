@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IResettable
 {
-    public float moveSpeed = 5f;
+    public float moveSpeed = 2f;
 
     public float pickupRange = 0f;
 
@@ -10,6 +10,12 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
 
     public float minX = -10f, maxX = 10f, minY = -5f, maxY = 5f;
+
+    public void ResetState()
+    {
+        moveSpeed = 2f;
+        pickupRange = 0f;
+    }
 
     void Awake()
     {

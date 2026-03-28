@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerProjectileShooter : MonoBehaviour
+public class PlayerProjectileShooter : MonoBehaviour, IResettable
 {
     public GameObject projectilePrefab;
 
@@ -21,6 +21,14 @@ public class PlayerProjectileShooter : MonoBehaviour
 
     float timer;
 
+    public void ResetState()
+    {
+        burstCount = 0;
+        laneCount = 1;
+        projectilePierce = 0;
+        projectileRicochet = 0;
+        timer = 0f;
+    }
 
     void Update()
     {

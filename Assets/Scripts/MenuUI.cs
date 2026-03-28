@@ -14,6 +14,9 @@ public class MenuUI : MonoBehaviour
         pauseButton.SetActive(false);
 
         Time.timeScale = 0f; // pause game
+
+        GameManager.Instance.ResetGame();
+        GameManager.Instance.StartStage(0);
     }
 
     public void StartGame()
@@ -39,5 +42,6 @@ public class MenuUI : MonoBehaviour
         tutorialPanel.SetActive(false);
         mainMenuPanel.SetActive(true);
         pauseButton.SetActive(false);
+        GameManager.Instance.ResetGame();
     }
 }
