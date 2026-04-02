@@ -67,7 +67,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,11 +86,12 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1869315837
+  m_SortingLayer: 3
+  m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b,
+    type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -223,7 +224,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43f535ea83f09404d9ab494788808e48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossSummonSkill
-  enemyPrefab: {fileID: 4671348829999511338, guid: 26071a94bb0755e498c7088518f9db02, type: 3}
+  enemyPrefab: {fileID: 4671348829999511338, guid: 26071a94bb0755e498c7088518f9db02,
+    type: 3}
   summonCount: 4
   summonRadius: 3
   cooldown: 10
@@ -239,7 +241,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e7ebb2bd1d17fd44982eafce346777b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossRadialShooter
-  bulletPrefab: {fileID: 8925092590423519247, guid: 7da29e50ff7646848aaded68288e586a, type: 3}
+  bulletPrefab: {fileID: 8925092590423519247, guid: 7da29e50ff7646848aaded68288e586a,
+    type: 3}
   bulletCount: 12
   cooldown: 3
   bulletSpeed: 5
@@ -255,7 +258,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a12f10b341677740aafde3c2b9ad343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossSpiralAttack
-  bulletPrefab: {fileID: 8925092590423519247, guid: 7da29e50ff7646848aaded68288e586a, type: 3}
+  bulletPrefab: {fileID: 8925092590423519247, guid: 7da29e50ff7646848aaded68288e586a,
+    type: 3}
   attackDuration: 3
   attackCooldown: 8
   fireInterval: 0.1
@@ -273,7 +277,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e5d6523f59b99b46b17332f2c3396fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossShotGunShooter
-  bulletPrefab: {fileID: 8925092590423519247, guid: 7da29e50ff7646848aaded68288e586a, type: 3}
+  bulletPrefab: {fileID: 8925092590423519247, guid: 7da29e50ff7646848aaded68288e586a,
+    type: 3}
   attackCooldown: 5
   bursts: 3
   burstDelay: 0.5

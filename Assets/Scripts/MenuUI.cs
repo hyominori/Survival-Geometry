@@ -15,8 +15,7 @@ public class MenuUI : MonoBehaviour
 
         Time.timeScale = 0f; // pause game
 
-        GameManager.Instance.ResetGame();
-        GameManager.Instance.StartStage(0);
+        //GameManager.Instance.ResetGame();
     }
 
     public void StartGame()
@@ -27,7 +26,7 @@ public class MenuUI : MonoBehaviour
 
 
         Time.timeScale = 1f;
-
+       
         GameManager.Instance.StartStage(0);
     }
 

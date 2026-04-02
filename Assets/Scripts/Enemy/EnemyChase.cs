@@ -4,16 +4,20 @@ public class EnemyChase : MonoBehaviour
 {
     public float speed = 2f;
     private Transform player;
-
+    private EnemyHealth health;
     private Rigidbody2D rb;
 
     private Vector2 knockbackVelocity;
     private float knockbackTimer;
     public float knockbackDuration = 0.2f;
+    private float knockbackCooldown = 0.5f;
+    private float lastKnockbackTime = -999f;
+    public float knockbackResistance = 1f;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        health = GetComponent<EnemyHealth>();   
     }
 
     void Start()
@@ -24,10 +28,16 @@ public class EnemyChase : MonoBehaviour
     void FixedUpdate()
     {
         // 👉 Nếu đang bị knockback → ưu tiên knockback
-        if (knockbackTimer > 0)
+        if (knockbackTimer > 0 && knockbackVelocity != Vector2.zero)
         {
             rb.linearVelocity = knockbackVelocity;
             knockbackTimer -= Time.fixedDeltaTime;
+            return;
+        }
+
+        if (health != null && health.IsDead)
+        {
+            rb.linearVelocity = Vector2.zero;
             return;
         }
 
@@ -38,7 +48,21 @@ public class EnemyChase : MonoBehaviour
 
     public void ApplyKnockback(Vector2 force)
     {
-        knockbackVelocity = force;
+        if (force.magnitude < 0.01f)
+        {
+            return;
+        }
+
+        if (Time.time < lastKnockbackTime + knockbackCooldown)
+        {
+            return;
+        }
+
+        lastKnockbackTime = Time.time;
+
+        Vector2 finalForce = force / knockbackResistance;
+
+        knockbackVelocity = finalForce;
         knockbackTimer = knockbackDuration;
     }
 }

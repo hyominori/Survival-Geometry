@@ -95,10 +95,9 @@ public class WeaponController : MonoBehaviour, IResettable
         {
             Destroy(w);
         }
+        weaponCount = 2;
 
         weapons.Clear();
-
-        weaponCount = 2;
 
         for (int i = 0; i < weaponCount; i++)
         {

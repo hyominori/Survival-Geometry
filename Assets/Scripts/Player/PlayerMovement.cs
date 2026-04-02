@@ -30,13 +30,8 @@ public class PlayerMovement : MonoBehaviour, IResettable
     }   
     void FixedUpdate()
     {
+        Vector2 newPosition = rb.position + moveInput * moveSpeed * Time.fixedDeltaTime;
         rb.linearVelocity = moveInput * moveSpeed; // Fix: Corrected property name from linearVelocity to velocity
 
-        Vector3 pos = transform.position;
-
-        pos.x = Mathf.Clamp(pos.x, minX, maxX);
-        pos.y = Mathf.Clamp(pos.y, minY, maxY);
-
-        transform.position = pos;
     }
 }

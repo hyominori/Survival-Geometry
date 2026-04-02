@@ -238,8 +238,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -105541197
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &1519016889257998251
 MonoBehaviour:
@@ -314,7 +314,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 736.7454, y: 592.7571, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2232537670588384202}
@@ -346,7 +346,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -365,11 +365,12 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1869315837
+  m_SortingLayer: 3
+  m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847,
+    type: 3}
   m_Color: {r: 1, g: 0.8789927, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -490,6 +491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyChase
   speed: 1
   knockbackDuration: 0.2
+  knockbackResistance: 1
 --- !u!114 &4073977628208287165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -502,8 +504,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c7afbb32fb494c4687477a73be05182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDrop
-  expOrbPrefab: {fileID: 3524280936551023574, guid: c149689c0641aaf4281598b76cb60517, type: 3}
-  healOrbPrefab: {fileID: 4992261153923919806, guid: ec59a42d62ba56943b04c3f9e4411522, type: 3}
+  expOrbPrefab: {fileID: 3524280936551023574, guid: c149689c0641aaf4281598b76cb60517,
+    type: 3}
+  healOrbPrefab: {fileID: 4992261153923919806, guid: ec59a42d62ba56943b04c3f9e4411522,
+    type: 3}
   expAmount: 5
   expDropChance: 0.8
   healDropChance: 0.1

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 public class Health : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class Health : MonoBehaviour
     public UnityEvent OnDied;
 
     protected bool isDead;
+
+    public bool IsDead => isDead;
 
     protected virtual void Awake()
     {
