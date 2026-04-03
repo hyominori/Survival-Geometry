@@ -105,5 +105,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a979d7e822df784f9c8b5f5e84e7475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WarningCircle
-  duration: 1
+  duration: 0.5
   maxScale: 2

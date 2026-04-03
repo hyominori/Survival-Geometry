@@ -26,8 +26,10 @@ public class GameManager : MonoBehaviour
     private Label stageFinishedLabel;
     private Label waveCountdownLabel;
     private Button continueButton;
-    private Button replayButton;
-    private Button menuButton;
+    private Button winReplayButton;
+    private Button loseReplayButton;
+    private Button winMenuButton;
+    private Button loseMenuButton;
 
     private int currentStageIndex = 0;
     private int currentWaveIndex = 0;
@@ -64,14 +66,22 @@ public class GameManager : MonoBehaviour
         Debug.Log("Countdown label = " + waveCountdownLabel);
 
         continueButton = root.Q<Button>("ContinueButton");
-        replayButton = root.Q<Button>("ReplayButton");
-        menuButton = root.Q<Button>("MenuButton");
+        winReplayButton = root.Q<Button>("WinReplayButton");
+        winMenuButton = root.Q<Button>("WinMenuButton"); 
+        loseReplayButton = root.Q<Button>("LoseReplayButton");
+        loseMenuButton = root.Q<Button>("LoseMenuButton");
 
         continueButton.clicked += NextStage;
-        replayButton.clicked += RestartGame;
-        menuButton.clicked += () =>
+        winReplayButton.clicked += RestartGame;
+        loseReplayButton.clicked += RestartGame;
+        winMenuButton.clicked += () =>
         {
             winPanel.style.display = DisplayStyle.None;
+            menuUI.BackToMenu();
+        };
+        loseMenuButton.clicked += () =>
+        {
+            losePanel.style.display = DisplayStyle.None;
             menuUI.BackToMenu();
         };
 
@@ -264,16 +274,16 @@ public class GameManager : MonoBehaviour
             continueButton.style.display = DisplayStyle.None;
 
             // Hiện nút Replay
-            replayButton.style.display = DisplayStyle.Flex;
+            winReplayButton.style.display = DisplayStyle.Flex;
 
-            menuButton.style.display = DisplayStyle.Flex;
+            winMenuButton.style.display = DisplayStyle.Flex;
         }
         else
         {
             stageFinishedLabel.text = $"Stage {stageNumber} Finished!";
 
             continueButton.style.display = DisplayStyle.Flex;
-            replayButton.style.display = DisplayStyle.None;
+            winReplayButton.style.display = DisplayStyle.None;
         }
 
         winPanel.style.display = DisplayStyle.Flex;
@@ -297,6 +307,7 @@ public class GameManager : MonoBehaviour
     {
         losePanel.style.display = DisplayStyle.None;
         winPanel.style.display = DisplayStyle.None;
+        losePanel.style.display = DisplayStyle.None;
         Time.timeScale = 1f;
         ResetGame();
         StartStage(0);
@@ -323,6 +334,15 @@ public class GameManager : MonoBehaviour
 
         foreach (var p in FindObjectsOfType<BossBullet>())
             Destroy(p.gameObject);
+    }
+
+    public void ClearAllItems()
+    {
+        GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
+        foreach (GameObject item in items)
+        {
+            Destroy(item);
+        }
     }
 
     void ResetAllSystem()
@@ -354,6 +374,7 @@ public class GameManager : MonoBehaviour
         // Clear enemy + đạn
         ClearEnemies();
         ClearAllProjectiles();
+        ClearAllItems();
 
         ResetAllSystem();
     }
